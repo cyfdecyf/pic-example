@@ -1,0 +1,41 @@
+--- dis/e.s	2022-03-16 18:43:21.917948700 +0800
++++ dis/e_pic.s	2022-03-16 18:43:21.917948700 +0800
+@@ -1,5 +1,5 @@
+ 
+-build/e:     file format elf64-x86-64
++build/e_pic:     file format elf64-x86-64
+ 
+ 
+ Disassembly of section .init:
+@@ -105,16 +105,21 @@
+     113f:	90                   	nop
+ 
+ 0000000000001140 <ml_func>:
+-    1140:	8d 44 3e 01          	lea    0x1(%rsi,%rdi,1),%eax
+-    1144:	03 05 de 2e 00 00    	add    0x2ede(%rip),%eax        # 4028 <myglob>
+-    114a:	89 05 d8 2e 00 00    	mov    %eax,0x2ed8(%rip)        # 4028 <myglob>
+-    1150:	01 f0                	add    %esi,%eax
+-    1152:	c3                   	ret    
++    1140:	53                   	push   %rbx
++    1141:	89 f3                	mov    %esi,%ebx
++    1143:	e8 e8 ff ff ff       	call   1130 <ml_util_func>
++    1148:	48 8d 15 d9 2e 00 00 	lea    0x2ed9(%rip),%rdx        # 4028 <myglob>
++    114f:	01 d8                	add    %ebx,%eax
++    1151:	03 02                	add    (%rdx),%eax
++    1153:	89 02                	mov    %eax,(%rdx)
++    1155:	01 d8                	add    %ebx,%eax
++    1157:	5b                   	pop    %rbx
++    1158:	c3                   	ret    
+ 
+ Disassembly of section .fini:
+ 
+-0000000000001154 <_fini>:
+-    1154:	f3 0f 1e fa          	endbr64 
+-    1158:	48 83 ec 08          	sub    $0x8,%rsp
+-    115c:	48 83 c4 08          	add    $0x8,%rsp
+-    1160:	c3                   	ret    
++000000000000115c <_fini>:
++    115c:	f3 0f 1e fa          	endbr64 
++    1160:	48 83 ec 08          	sub    $0x8,%rsp
++    1164:	48 83 c4 08          	add    $0x8,%rsp
++    1168:	c3                   	ret    
