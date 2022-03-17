@@ -1,6 +1,6 @@
 # What happens when link to PIC enabled static lib?
 
-Take a look at [diffu](./dis/diffu), which is the diff of executable assembly code.
+Take a look at [diffu](./dis/diffu.patch), which is the diff of executable assembly code.
 
 [gen.sh](./gen.sh) compiles and generates assembly code and diff.
 
